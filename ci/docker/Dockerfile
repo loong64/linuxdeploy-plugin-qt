@@ -11,14 +11,16 @@
 ARG BASE_IMAGE=debian:stable
 FROM ${BASE_IMAGE}
 
+ARG ARCH
+
 SHELL ["bash", "-x", "-c"]
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y libbison-dev bison build-essential cmake git gcovr patchelf wget \
             libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev \
-            cimg-dev qtbase5-dev qtdeclarative5-dev-tools qml-module-qtquick2 qtdeclarative5-dev \
-            googletest google-mock nlohmann-json3-dev autoconf libtool nano qtwebengine5-dev gdb && \
+            cimg-dev qt6-base-dev qt6-declarative-dev-tools qml6-module-qtquick qt6-declarative-dev \
+            googletest google-mock nlohmann-json3-dev autoconf libtool nano qt6-webengine-dev gdb && \
     apt-get autoremove --purge -y && \
     apt-get clean -y
 

@@ -54,7 +54,7 @@ patch_appimage "$(basename "$target")"
 ./"$(basename "$target")" || true
 ./"$(basename "$target")" --help || true
 
-git clone --depth=1 https://github.com/linuxdeploy/linuxdeploy-plugin-qt-examples.git
+git clone --depth=1 https://github.com/loong64/linuxdeploy-plugin-qt-examples.git
 
 ## Build projects
 pushd linuxdeploy-plugin-qt-examples/QtQuickControls2Application
@@ -77,7 +77,7 @@ pushd linuxdeploy-plugin-qt-examples/QtWebEngineApplication
 
     mkdir build
     pushd build
-        qmake CONFIG+=release PREFIX=/usr ../QtWebEngineApplication.pro
+        qmake6 CONFIG+=release PREFIX=/usr ../QtWebEngineApplication.pro
         INSTALL_ROOT="$PWD"/AppDir make install
 
         "$linuxdeploy_bin" --appdir "$PWD"/AppDir --plugin qt --output appimage
@@ -88,7 +88,7 @@ popd
 pushd linuxdeploy-plugin-qt-examples/QtWidgetsApplication
     mkdir build
     pushd build
-        qmake CONFIG+=release PREFIX=/usr ../QtWidgetsApplication.pro
+        qmake6 CONFIG+=release PREFIX=/usr ../QtWidgetsApplication.pro
         INSTALL_ROOT="$PWD"/AppDir make install
 
         "$linuxdeploy_bin" --appdir "$PWD"/AppDir --plugin qt --output appimage
@@ -98,7 +98,7 @@ pushd linuxdeploy-plugin-qt-examples/QtWidgetsApplication
     mkdir build-platforms
     pushd build-platforms
         export EXTRA_PLATFORM_PLUGINS="libqoffscreen.so;libqminimal.so"
-        qmake CONFIG+=release PREFIX=/usr ../QtWidgetsApplication.pro
+        qmake6 CONFIG+=release PREFIX=/usr ../QtWidgetsApplication.pro
         INSTALL_ROOT="$PWD"/AppDir make install
 
         env OUTPUT=platforms.AppImage "$linuxdeploy_bin" --appdir "$PWD"/AppDir --plugin qt --output appimage

@@ -43,7 +43,7 @@ case "$ARCH" in
         ;;
     loongarch64)
         docker_platform=linux/loong64
-        BASE_IMAGE="ghcr.io/loong64/debian:trixie"
+        BASE_IMAGE="ghcr.io/loong64/loongnix:25"
         ;;
     *)
         echo "Unsupported \$ARCH: $ARCH"
