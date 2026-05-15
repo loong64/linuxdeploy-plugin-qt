@@ -52,10 +52,9 @@ namespace linuxdeploy {
 
                 TEST_F(TestDeployQml, find_qmlimporter_path) {
                     auto result = findQmlImportScanner();
-                    std::filesystem::path expected = "/usr/bin/qmlimportscanner";
 
                     ASSERT_FALSE(result.empty());
-                    ASSERT_EQ(result.string(), expected.string());
+                    ASSERT_TRUE(std::filesystem::exists(result));
                 }
 
                 TEST_F(TestDeployQml, runQmlImportScanner) {
@@ -95,7 +94,7 @@ namespace linuxdeploy {
                     deployQml(appDir, defaultQmlImportPath);
                     appDir.executeDeferredOperations();
 
-                    ASSERT_TRUE(std::filesystem::exists(projectQmlRoot.string() + "/QtQuick.2"));
+                    ASSERT_TRUE(std::filesystem::exists(projectQmlRoot.string() + "/QtQuick"));
                     ASSERT_TRUE(std::filesystem::exists(projectQmlRoot.string() + "/qml_module"));
                 }
 

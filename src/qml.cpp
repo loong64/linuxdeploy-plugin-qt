@@ -22,7 +22,26 @@ using namespace nlohmann;
 namespace fs = std::filesystem;
 
 fs::path findQmlImportScanner() {
-    return which("qmlimportscanner");
+    auto qmakePath = findQmake();
+    if (qmakePath.empty())
+        return {};
+
+    auto qmakeVars = queryQmake(qmakePath);
+
+    for (const auto& key : {"QT_INSTALL_LIBEXECS", "QT_INSTALL_BINS"}) {
+        auto it = qmakeVars.find(key);
+        if (it != qmakeVars.end()) {
+            auto candidate = fs::path(it->second) / "qmlimportscanner";
+            if (fs::exists(candidate))
+                return candidate;
+        }
+    }
+
+    auto path = which("qmlimportscanner");
+    if (!path.empty())
+        return path;
+
+    return {};
 }
 
 std::string runQmlImportScanner(const std::vector<std::filesystem::path> &sourcesPaths, const std::vector<fs::path> &qmlImportPaths) {
