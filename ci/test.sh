@@ -36,7 +36,7 @@ patch_appimage() {
     dd if=/dev/zero bs=1 count=3 seek=8 conv=notrunc of="$1"
 }
 
-wget -N https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-"$ARCH".AppImage
+wget -N https://github.com/loong64/linuxdeploy/releases/download/continuous/linuxdeploy-"$ARCH".AppImage
 patch_appimage linuxdeploy-"$ARCH".AppImage
 
 cp linuxdeploy-"$ARCH".AppImage "$build_dir"

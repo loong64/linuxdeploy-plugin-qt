@@ -26,6 +26,7 @@ fi
 set -euo pipefail
 
 this_dir="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
+BASE_IMAGE="debian:stable"
 
 case "$ARCH" in
     x86_64)
@@ -39,6 +40,10 @@ case "$ARCH" in
         ;;
     aarch64)
         docker_platform=linux/arm64/v8
+        ;;
+    loongarch64)
+        docker_platform=linux/loong64
+        BASE_IMAGE="ghcr.io/loong64/debian:trixie"
         ;;
     *)
         echo "Unsupported \$ARCH: $ARCH"
@@ -63,6 +68,7 @@ docker_image=linuxdeploy-plugin-qt-build
 docker build \
     --platform "$docker_platform" \
     --build-arg ARCH="$ARCH" \
+    --build-arg BASE_IMAGE="$BASE_IMAGE" \
     "${build_args[@]}" \
     -t "$docker_image" \
     "$this_dir"/docker

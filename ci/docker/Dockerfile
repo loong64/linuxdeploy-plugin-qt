@@ -8,13 +8,14 @@
 # also, they still provide IA-32 builds for some reason...
 # some people in the AppImage community do not (want to) realize i386 is dead for good
 # we are going to drop i686 in the future!
-FROM debian:stable
+ARG BASE_IMAGE=debian:stable
+FROM ${BASE_IMAGE}
 
 SHELL ["bash", "-x", "-c"]
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
-    apt-get install -y build-essential cmake git gcovr patchelf wget \
+    apt-get install -y libbison-dev bison build-essential cmake git gcovr patchelf wget \
             libmagic-dev libjpeg-dev libpng-dev libboost-filesystem-dev libboost-regex-dev \
             cimg-dev qtbase5-dev qtdeclarative5-dev-tools qml-module-qtquick2 qtdeclarative5-dev \
             googletest google-mock nlohmann-json3-dev autoconf libtool nano qtwebengine5-dev gdb && \
@@ -23,6 +24,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 # install into separate destdir to avoid polluting the $PATH with tools like ld that will break things
 ENV TOOLS_DIR=/tools
+
+ENV BUILD_ARCH=${ARCH}
 
 COPY install-static-binutils.sh /
 RUN bash /install-static-binutils.sh

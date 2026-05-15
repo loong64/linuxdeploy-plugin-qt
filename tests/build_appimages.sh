@@ -32,7 +32,7 @@ cd build
 cmake "$src_dir" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr
 DESTDIR=AppDir make install
 
-wget -N https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-"$ARCH".AppImage
+wget -N https://github.com/loong64/linuxdeploy/releases/download/continuous/linuxdeploy-"$ARCH".AppImage
 chmod +x linuxdeploy-"$ARCH".AppImage
 
 ./linuxdeploy-"$ARCH".AppImage --app-name "$src_dir" --appdir AppDir --init-appdir --output appimage

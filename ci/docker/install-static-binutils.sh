@@ -16,7 +16,12 @@ BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" linuxdeploy-build-XXXXXX)
 pushd "$BUILD_DIR"
 
 # fetch source code
-wget https://ftp.gnu.org/gnu/binutils/binutils-2.35.tar.xz -O- | tar xJ --strip-components=1
+if [[ "$BUILD_ARCH" ==  "armhf" ]]; then
+    wget https://ftp.gnu.org/gnu/binutils/binutils-2.35.tar.xz -O- | tar xJ --strip-components=1
+else
+    # LoongArch is added after 2.38
+    wget https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz -O- | tar xJ --strip-components=1
+fi
 
 # configure static build
 # inspired by https://github.com/andrew-d/static-binaries/blob/master/binutils/build.sh

@@ -47,7 +47,7 @@ export OUTPUT="linuxdeploy-plugin-qt-$ARCH.AppImage"
 
 # special set of builds using a different experimental runtime, used for testing purposes
 if [[ "${USE_STATIC_RUNTIME:-}" != "" ]]; then
-    custom_runtime_url="https://github.com/AppImage/type2-runtime/releases/download/continuous/runtime-$ARCH"
+    custom_runtime_url="https://github.com/loong64/type2-runtime/releases/download/continuous/runtime-$ARCH"
     wget "$custom_runtime_url"
     runtime_filename="$(echo "$custom_runtime_url" | rev | cut -d/ -f1 | rev)"
     LDAI_RUNTIME_FILE="$(readlink -f "$runtime_filename")"
@@ -55,7 +55,7 @@ if [[ "${USE_STATIC_RUNTIME:-}" != "" ]]; then
     export OUTPUT="linuxdeploy-plugin-qt-static-$ARCH.AppImage"
 fi
 
-wget "https://github.com/TheAssassin/linuxdeploy/releases/download/continuous/linuxdeploy-$ARCH.AppImage"
+wget "https://github.com/loong64/linuxdeploy/releases/download/continuous/linuxdeploy-$ARCH.AppImage"
 # qemu is not happy about the AppImage type 2 magic bytes, so we need to "fix" that
 dd if=/dev/zero bs=1 count=3 seek=8 conv=notrunc of=linuxdeploy-"$ARCH".AppImage
 chmod +x linuxdeploy*.AppImage
